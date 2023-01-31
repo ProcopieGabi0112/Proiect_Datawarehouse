@@ -1,0 +1,19 @@
+FROM container-registry.oracle.com/database/enterprise:latest
+
+COPY /config/01_create_user.sql /opt/oracle/scripts/startup/
+COPY /config/02_create_db.sql /opt/oracle/scripts/startup/
+COPY /config/03_populate_data.sql /opt/oracle/scripts/startup/
+COPY /config/create_olap_tables.sql /opt/oracle/scripts/startup/
+COPY /config/dmensions.sql /opt/oracle/scripts/startup/
+COPY /config/olap_data.sql /opt/oracle/scripts/startup/
+
+
+COPY /config/database.sh /opt/oracle/scripts/setup/
+
+# CMD ["rm /opt/oracle/product/21c/dbhome_1/network/admin/samples/listener.ora"]
+
+COPY /config/listener.ora /opt/oracle/product/21c/dbhome_1/network/admin/samples/
+COPY /config/tsnames.ora /opt/oracle/product/21c/dbhome_1/network/admin/samples/
+
+
+# CMD ["rm /opt/oracle/product/21c/dbhomeXE/network/admin/tnsnames.ora"]

@@ -1,0 +1,35 @@
+version: '3'
+
+services: 
+  oracle:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.oracle
+    ports:
+      - 1521:1521
+      - 5500:5500
+    volumes:
+      - "./oracle:/ORCL"
+    environment:
+      -  DB_SID=ORCLCDB
+      -  ORACLE_SID=ORCLCDB
+      -  DB_PDB=orclpdb1
+      -  SYS_PASSWORD=Oradoc_db1
+    container_name: oracle
+  django:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.django
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/usr/src/app/
+      - /tmp:/tmp
+    hostname: django
+    environment:
+      - RUN_DOCKERIZED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    container_name: django
+    depends_on:
+      - oracle
