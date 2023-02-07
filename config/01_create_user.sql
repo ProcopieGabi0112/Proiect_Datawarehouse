@@ -1,11 +1,11 @@
 alter session set "_ORACLE_SCRIPT"=true;
 
 show con_name;
-alter session set container= orclpdb1;
+alter session set container=orclpdb1;
 show con_name;
 
--- ALTER PLUGGABLE DATABASE orclpdb1 open; ALREADY OPEN?
--- alter system disable restricted session; 
+ALTER PLUGGABLE DATABASE orclpdb1 open; --ALREADY OPEN?
+alter system disable restricted session; 
 alter system set local_listener = '(ADDRESS=(PROTOCOL=TCP)(HOST=0.0.0.0)(PORT=1521))' scope = both;
 CREATE USER marius IDENTIFIED BY db_pass;
 GRANT ALL PRIVILEGES TO marius;

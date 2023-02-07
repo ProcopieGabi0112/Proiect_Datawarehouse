@@ -1,3 +1,5 @@
+alter session set container= orclpdb1;
+
 CREATE OR REPLACE FUNCTION dw_manager.calculeaza_varsta(data_nasterii DATE)
 RETURN NUMBER IS
 BEGIN

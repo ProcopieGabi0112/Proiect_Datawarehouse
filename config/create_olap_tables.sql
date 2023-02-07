@@ -1,3 +1,5 @@
+alter session set container= orclpdb1;
+
 DROP TABLE perioada_rezervare_OLAP;
 CREATE TABLE dw_manager.perioada_rezervare_OLAP(
 id_perioada NUMBER(8,0) GENERATED ALWAYS as IDENTITY(START WITH 1 INCREMENT BY 1),
