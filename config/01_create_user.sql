@@ -72,7 +72,7 @@ CREATE TABLE dw_manager.rezervare
       data_sfarsit DATE CONSTRAINT data_sfarsit_rezervare_nn NOT NULL);
 
 CREATE UNIQUE INDEX rezervare_index
-ON dw_manager. rezervare (id_rezervare);
+ON dw_manager.rezervare (id_rezervare);
 
 ALTER TABLE dw_manager.rezervare
 ADD ( CONSTRAINT id_rezervare_pk PRIMARY KEY (id_rezervare)) ;
@@ -82,7 +82,7 @@ CREATE TABLE dw_manager.atribuie
       id_camera NUMBER CONSTRAINT id_camera_atribuie_nn NOT NULL);
 
 CREATE UNIQUE INDEX id_rezervare_camera_index
-ON dw_manager.dw_manager.atribuie (id_rezervare,id_camera);
+ON dw_manager.atribuie (id_rezervare,id_camera);
 
 ALTER TABLE dw_manager.atribuie
 ADD ( CONSTRAINT id_rezervare_camera__pk PRIMARY KEY (id_rezervare,id_camera));
@@ -99,7 +99,7 @@ CREATE TABLE dw_manager.camera
       pret_per_noapte NUMBER CONSTRAINT pret_per_noapte_camera_nn NOT NULL);
 
 CREATE UNIQUE INDEX id_camera_index
-ON dw_manager.dw_manager.zona(id_camera);
+ON dw_manager.zona(id_camera);
 
 ALTER TABLE dw_manager.zona
 ADD ( CONSTRAINT id_camera_camera_pk PRIMARY KEY (id_camera)) ;
@@ -119,7 +119,7 @@ ADD ( CONSTRAINT id_hotel_hotel_pk PRIMARY KEY (id_hotel)) ;
 
 
 CREATE UNIQUE INDEX id_zona_zona_index
-ON dw_manager.dw_manager.zona (id_zona);
+ON dw_manager.zona (id_zona);
 
 ALTER TABLE  dw_manager.zona
 ADD ( CONSTRAINT id_zona_pk PRIMARY KEY (id_zona)) ;
@@ -1413,7 +1413,7 @@ INSERT INTO dw_manager.atribuie (ID_rezervare, ID_camera) VALUES (38, 77);
 
 
 CREATE USER dw_admin IDENTIFIED BY admin_pass;
-GRANT CREATE SESSION dw_manager.TO dw_admin;
+GRANT CREATE SESSION  dw_admin;
 
 GRANT SELECT ANY TABLE TO dw_admin;
 GRANT DELETE ANY TABLE TO dw_admin;
