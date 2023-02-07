@@ -27,8 +27,8 @@ CREATE TABLE dw_manager.tip_camera_OLAP(
 );
 
 
-DROP TABLE hotel_OLAP;
-CREATE TABLE hotel_OLAP
+DROP TABLE dw_manager.hotel_OLAP;
+CREATE TABLE dw_manager.hotel_OLAP
 ( 
       id_hotel NUMBER(8),
       nume VARCHAR2(50) CONSTRAINT nume_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
@@ -41,15 +41,15 @@ CREATE TABLE hotel_OLAP
       are_mic_dejun_inclus NUMBER(1) CONSTRAINT are_mic_dejun_inclus_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
       PRIMARY KEY (id_hotel)
 )
-PARTITION dw_manager.BY LIST (nr_stele)
-      (PARTITION dw_manager.o_stea VALUES (1),
-       PARTITION dw_manager.doua_stele VALUES (2),
-       PARTITION dw_manager.trei_stele VALUES  (3),
-       PARTITION dw_manager.patru_stele VALUES (4),
-       PARTITION dw_manager.cinci_stele VALUES (5));
+PARTITION LIST(nr_stele)
+      (PARTITION o_stea VALUES (1),
+       PARTITION doua_stele VALUES (2),
+       PARTITION trei_stele VALUES  (3),
+       PARTITION patru_stele VALUES (4),
+       PARTITION cinci_stele VALUES (5));
 
 
-DROP TABLE tip_client_OLAP;
+DROP TABLE dw_manager.tip_client_OLAP;
 CREATE TABLE dw_manager.tip_client_OLAP(
  id_tip_client NUMBER(8) GENERATED ALWAYS as IDENTITY(START WITH 1 INCREMENT BY 1),
  varsta NUMBER(3) CONSTRAINT varsta_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
