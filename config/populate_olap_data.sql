@@ -38,7 +38,7 @@ SELECT DISTINCT id_rezervare,id_hotel,
                 gaseste_id_tip_client_OLAP(calculeaza_varsta(utilizator.data_nasterii),utilizator.gen,utilizator.stare_civila) AS id_tip_client,
                 camera.pret_per_noapte * (rezervare.data_sfarsit - rezervare.data_inceput) AS pret
 FROM utilizator JOIN rezervare
-ON utilizator.id_utilizator=rezervare.id_client
+ON dw_manager.utilizator.id_utilizator=rezervare.id_client
 JOIN rezervare_camera
 USING(id_rezervare)
 JOIN camera

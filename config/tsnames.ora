@@ -1,4 +1,4 @@
-# This file contains the syntax information for 
+# This file contains the syntax informatiON dw_manager.for 
 # the entries to be put in any tnsnames.ora file
 # The entries in this file are need based. 
 # There are no defaults for entries in this file
@@ -13,7 +13,7 @@
 
 # The entries in tnsnames.ora are an alternative to using
 # the names server with the onames adapter.
-# They are a collection of aliases for the addresses that 
+# They are a collectiON dw_manager.of aliases for the addresses that 
 # the listener(s) is(are) listening for a database or 
 # several databases.
 
@@ -22,7 +22,7 @@
 # tailored to the user's needs.
 
 ORCLCDB =
-  (DESCRIPTION =
+  (DESCRIPTION dw_manager.=
     (ADDRESS_LIST =
       (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))
     )
@@ -33,7 +33,7 @@ ORCLCDB =
   )
 
 ORCLPDB1 =
-  (DESCRIPTION =
+  (DESCRIPTION dw_manager.=
     (ADDRESS_LIST =
       (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))
     )
@@ -46,13 +46,13 @@ ORCLPDB1 =
 
 
 
-<alias>= [ (DESCRIPTION_LIST =  # Optional depending on whether u have 
+<alias>= [ (DESCRIPTION_LIST =  # Optional depending ON dw_manager.whether u have 
                                 # one or more descriptions
                                 # If there is just one description, unnecessary ]
           (DESCRIPTION=
             [ (SDU=2048) ]      # Optional, defaults to 2048
                                 # Can take values between 512 and 32K
-            [ (ADDRESS_LIST=    # Optional depending on whether u have
+            [ (ADDRESS_LIST=    # Optional depending ON dw_manager.whether u have
                                 # one or more addresses
                                 # If there is just one address, unnecessary ]
               (ADDRESS=
@@ -75,7 +75,7 @@ ORCLPDB1 =
               ]
               ... # More addresses
               
-            [ ) ] # Optional depending on whether ADDRESS_LIST is used or not 
+            [ ) ] # Optional depending ON dw_manager.whether ADDRESS_LIST is used or not 
             [ (CONNECT_DATA=
                 (SID=<oracle_sid>)
                 [ (GLOBAL_NAME=<global_database_name>) ]
@@ -86,7 +86,7 @@ ORCLPDB1 =
           (DESCRIPTION=     
             [ (SDU=2048) ]      # Optional, defaults to 2048
                                 # Can take values between 512 and 32K
-            [ (ADDRESS_LIST= ]  # Optional depending on whether u have more
+            [ (ADDRESS_LIST= ]  # Optional depending ON dw_manager.whether u have more
                                 # than one address or not
                                 # If there is just one address, unnecessary
               (ADDRESS
@@ -101,7 +101,7 @@ ORCLPDB1 =
                  )
               ]
               ...               # More addresses
-            [ ) ]               # Optional depending on whether ADDRESS_LIST  
+            [ ) ]               # Optional depending ON dw_manager.whether ADDRESS_LIST  
                                 # is being used
             [ (CONNECT_DATA=
                 (SID=<oracle_sid>)
@@ -116,4 +116,4 @@ ORCLPDB1 =
             )
           ]
           ...   # More descriptions 
-        [ ) ]   # Optional depending on whether DESCRIPTION_LIST is used or not
+        [ ) ]   # Optional depending ON dw_manager.whether DESCRIPTION_LIST is used or not

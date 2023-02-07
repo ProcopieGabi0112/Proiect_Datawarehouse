@@ -4,7 +4,7 @@
 select max(pret_per_noapte) from
 (select hotel.nume,camera.pret_per_noapte from hotel
 INNER JOIN camera
-on camera.id_hotel = hotel.id_hotel
+ON dw_manager.camera.id_hotel = hotel.id_hotel
 order by hotel.nume)
 
 
@@ -12,9 +12,9 @@ order by hotel.nume)
 
 select * from (select hotel.nume, MIN(pret_per_noapte) from camera 
 INNER JOIN hotel
-on hotel.id_hotel=camera.id_hotel
+ON dw_manager.hotel.id_hotel=camera.id_hotel
 INNER JOIN zona
-on zona.id_zona = hotel.id_zona
+ON dw_manager.zona.id_zona = hotel.id_zona
 WHERE zona.pozitie = 'centrala'
 GROUP BY hotel.nume) 
 where rownum = 1
@@ -25,9 +25,9 @@ where rownum = 1
 select * from(
 SELECT MAX(rezervari) as mres, numes  FROM (SELECT  hotel.nume as numes,COUNT(atribuie.id_rezervare) as rezervari from atribuie
 inner join camera
-on camera.id_camera=atribuie.id_camera
+ON dw_manager.camera.id_camera=atribuie.id_camera
 inner join hotel
-on hotel.id_hotel = camera.id_hotel
+ON dw_manager.hotel.id_hotel = camera.id_hotel
 GROUP BY hotel.nume) 
 group by numes
 ORDER BY mres DESC
@@ -37,7 +37,7 @@ where rownum=1;
 4* Cele mai scumpe 5 hoteluri
 select DISTINCT hotel.nume,camera.pret_per_noapte from hotel
 INNER JOIN camera
-on camera.id_hotel = hotel.id_hotel
+ON dw_manager.camera.id_hotel = hotel.id_hotel
 order by camera.pret_per_noapte desc
 fetch first 5 rows only;
 

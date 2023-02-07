@@ -1,13 +1,16 @@
 show con_name;
-alter session set container= orclpdb;
+alter sessiON dw_manager.set container= orclpdb;
 show con_name;
 ALTER PLUGGABLE DATABASE orclpdb open;
 
 CREATE USER dw_manager IDENTIFIED BY mng_pass;
-GRANT CREATE SESSION TO dw_manager;
+GRANT CREATE SESSION dw_manager.TO dw_manager;
 GRANT CREATE ANY TABLE TO dw_manager;
 GRANT CREATE ANY INDEX TO dw_manager;
 GRANT CREATE VIEW TO dw_manager;
+
+
+
 
 GRANT CREATE TRIGGER TO dw_manager;
 GRANT CREATE ANY SEQUENCE TO dw_manager;
@@ -34,7 +37,7 @@ FROM session_privs;
 
 
 CREATE USER dw_admin IDENTIFIED BY admin_pass;
-GRANT CREATE SESSION TO dw_admin;
+GRANT CREATE SESSION dw_manager.TO dw_admin;
 
 GRANT SELECT ANY TABLE TO dw_admin;
 GRANT DELETE ANY TABLE TO dw_admin;
@@ -42,9 +45,9 @@ GRANT UPDATE ANY TABLE TO dw_admin;
 GRANT ALTER ANY TABLE TO dw_admin;
 
 --daca dorim sa oferim doar anumite privilegi mai restrictive asupra anumitor tabele putem folosi comanda urmatoare
---GRANT UPDATE ON dw_manager.rezervare TO dw_admin;
+--GRANT UPDATE ON dw_manager.dw_manager.rezervare TO dw_admin;
 --sau daca dorim sa nu mai folosim anumite privilegii precum cel de mai putem folosi comanda
---REVOKE DELETE ON dw_manager.rezervare FROM dw_admin;
+--REVOKE DELETE ON dw_manager.dw_manager.rezervare FROM dw_admin;
 
 --pentru a accesa un tabel trebuie sa folosim dw_manager.nume_tabel deoarece altfel nu merge
 
@@ -57,3 +60,5 @@ GRANT ALTER ANY TABLE TO dw_admin;
 SELECT substr(grantee,1,20) grantee, owner,substr(table_name,1,15) table_name, grantor, privilege
 FROM DBA_TAB_PRIVS
 WHERE grantee like 'DW_%';
+
+

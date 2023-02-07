@@ -1,5 +1,5 @@
-# custom scripts on start up
-# echo "====> checking for custom scripts on startup..."
+# custom scripts ON dw_manager.start up
+# echo "====> checking for custom scripts ON dw_manager.startup..."
 # if [ ! "$(ls -A /home/oracle/setup/*.sql)" ]
 # then
 #     echo "/home/oracle/setup is empty!"

@@ -1,5 +1,5 @@
 DROP TABLE perioada_rezervare_OLAP;
-CREATE TABLE perioada_rezervare_OLAP(
+CREATE TABLE dw_manager.perioada_rezervare_OLAP(
 id_perioada NUMBER(8,0) GENERATED ALWAYS as IDENTITY(START WITH 1 INCREMENT BY 1),
 zi_din_luna_inceput NUMBER(2,0) CONSTRAINT zi_din_luna_inceput_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
 luna_inceput CHAR(3) CONSTRAINT luna_inceput_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
@@ -16,10 +16,8 @@ PRIMARY KEY(id_perioada)
 );
 
 
-
-
-DROP TABLE tip_camera_OLAP;
-CREATE TABLE tip_camera_OLAP(
+DROP TABLE dw_manager.tip_camera_OLAP;
+CREATE TABLE dw_manager.tip_camera_OLAP(
       id_tip_camera NUMBER(8)GENERATED ALWAYS as IDENTITY(START WITH 1 INCREMENT BY 1),
       nr_paturi_duble NUMBER(1) CONSTRAINT nr_paturi_duble_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
       nr_paturi_simple NUMBER(1)CONSTRAINT nr_paturi_simple_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
@@ -27,8 +25,6 @@ CREATE TABLE tip_camera_OLAP(
       are_televizor NUMBER(1) CONSTRAINT are_telezivor_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
       PRIMARY KEY (id_tip_camera)
 );
-
-
 
 
 DROP TABLE hotel_OLAP;
@@ -45,14 +41,12 @@ CREATE TABLE hotel_OLAP
       are_mic_dejun_inclus NUMBER(1) CONSTRAINT are_mic_dejun_inclus_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
       PRIMARY KEY (id_hotel)
 )
-PARTITION BY LIST (nr_stele)
-      (PARTITION o_stea VALUES (1),
-       PARTITION doua_stele VALUES (2),
-       PARTITION trei_stele VALUES  (3),
-       PARTITION patru_stele VALUES (4),
-       PARTITION cinci_stele VALUES (5));
-
-
+PARTITION dw_manager.BY LIST (nr_stele)
+      (PARTITION dw_manager.o_stea VALUES (1),
+       PARTITION dw_manager.doua_stele VALUES (2),
+       PARTITION dw_manager.trei_stele VALUES  (3),
+       PARTITION dw_manager.patru_stele VALUES (4),
+       PARTITION dw_manager.cinci_stele VALUES (5));
 
 
 DROP TABLE tip_client_OLAP;
@@ -63,8 +57,6 @@ CREATE TABLE tip_client_OLAP(
  stare_civila VARCHAR(20),
  PRIMARY KEY (id_tip_client)
  );
-
-
 
 
 DROP TABLE moment_efectuare_rezervare_OLAP;
@@ -78,8 +70,6 @@ zi_din_an NUMBER(3,0) CONSTRAINT zi_din_an_nn_OLAP NOT NULL RELY DISABLE NOVALID
 --ora_aprox NUMBER(2,0),
 PRIMARY KEY (id_moment_efectuare)
 );
-
-
 
 
 DROP TABLE rezervare_camera_OLAP;

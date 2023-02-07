@@ -3,13 +3,14 @@ alter session set "_ORACLE_SCRIPT"=true;
 show con_name;
 alter session set container= orclpdb1;
 show con_name;
+
 -- ALTER PLUGGABLE DATABASE orclpdb1 open; ALREADY OPEN?
 -- alter system disable restricted session; 
 alter system set local_listener = '(ADDRESS=(PROTOCOL=TCP)(HOST=0.0.0.0)(PORT=1521))' scope = both;
 CREATE USER marius IDENTIFIED BY db_pass;
 GRANT ALL PRIVILEGES TO marius;
 CREATE USER dw_manager IDENTIFIED BY mng_pass;
-GRANT CREATE SESSION TO dw_manager;
+GRANT CREATE SESSION dw_manager;
 GRANT CREATE ANY TABLE TO dw_manager;
 GRANT CREATE ANY INDEX TO dw_manager;
 GRANT CREATE VIEW TO dw_manager;
@@ -22,7 +23,6 @@ GRANT DELETE ANY TABLE TO dw_manager;
 GRANT UPDATE ANY TABLE TO dw_manager;
 GRANT ALTER ANY TABLE TO dw_manager;
 GRANT UNLIMITED TABLESPACE TO dw_manager;
-
 
 SELECT * 
 FROM session_privs;
@@ -41,7 +41,7 @@ CREATE TABLE dw_manager.utilizator
       nume_utilizator VARCHAR(30) CONSTRAINT nume_utilizator_nn NOT NULL, 
       hash_parola VARCHAR(25) CONSTRAINT hash_parola_utilizator_nn NOT NULL,
       nume_complet VARCHAR(30) CONSTRAINT nume_complet_utilizator_nn NOT NULL,
-      telefon VARCHAR(15) CONSTRAINT telefon_utilizator_nn NOT NULL,
+      telefON dw_manager.VARCHAR(15) CONSTRAINT telefon_utilizator_nn NOT NULL,
       email VARCHAR(50) CONSTRAINT email_utilizator_nn NOT NULL,
       data_nasterii DATE CONSTRAINT data_nasterii_utilizator_nn NOT NULL,
       gen VARCHAR(20) DEFAULT NULL,
@@ -54,13 +54,13 @@ CREATE TABLE dw_manager.utilizator
       pozitie VARCHAR2(50) CONSTRAINT pozitie_zona_nn NOT NULL);
 
 CREATE UNIQUE INDEX id_zona_zona_index
-ON zona (id_zona);
+ON dw_manager.zona (id_zona);
 
 ALTER TABLE zona
 ADD ( CONSTRAINT id_zona_zona_pk PRIMARY KEY (id_zona)) ;    
 
 CREATE UNIQUE INDEX id_utilizator_index
-ON utilizator (id_utilizator);
+ON dw_manager.utilizator (id_utilizator);
 
 ALTER TABLE dw_manager.utilizator
 ADD ( CONSTRAINT id_nume_utilizator_pk PRIMARY KEY (id_utilizator)) ;
@@ -72,7 +72,7 @@ CREATE TABLE dw_manager.rezervare
       data_sfarsit DATE CONSTRAINT data_sfarsit_rezervare_nn NOT NULL);
 
 CREATE UNIQUE INDEX rezervare_index
-ON  rezervare (id_rezervare);
+ON dw_manager. rezervare (id_rezervare);
 
 ALTER TABLE dw_manager.rezervare
 ADD ( CONSTRAINT id_rezervare_pk PRIMARY KEY (id_rezervare)) ;
@@ -82,7 +82,7 @@ CREATE TABLE dw_manager.atribuie
       id_camera NUMBER CONSTRAINT id_camera_atribuie_nn NOT NULL);
 
 CREATE UNIQUE INDEX id_rezervare_camera_index
-ON dw_manager.atribuie (id_rezervare,id_camera);
+ON dw_manager.dw_manager.atribuie (id_rezervare,id_camera);
 
 ALTER TABLE dw_manager.atribuie
 ADD ( CONSTRAINT id_rezervare_camera__pk PRIMARY KEY (id_rezervare,id_camera));
@@ -99,7 +99,7 @@ CREATE TABLE dw_manager.camera
       pret_per_noapte NUMBER CONSTRAINT pret_per_noapte_camera_nn NOT NULL);
 
 CREATE UNIQUE INDEX id_camera_index
-ON dw_manager.zona(id_camera);
+ON dw_manager.dw_manager.zona(id_camera);
 
 ALTER TABLE dw_manager.zona
 ADD ( CONSTRAINT id_camera_camera_pk PRIMARY KEY (id_camera)) ;
@@ -112,14 +112,14 @@ CREATE TABLE dw_manager.hotel
       are_mic_dejun_inclus NUMBER(1) CONSTRAINT are_mic_dejun_inclus_hotel_nn NOT NULL);
 
 CREATE UNIQUE INDEX id_hotel_index
-ON hotel (id_hotel);
+ON dw_manager.hotel (id_hotel);
 
 ALTER TABLE hotel
 ADD ( CONSTRAINT id_hotel_hotel_pk PRIMARY KEY (id_hotel)) ;
 
 
 CREATE UNIQUE INDEX id_zona_zona_index
-ON dw_manager.zona (id_zona);
+ON dw_manager.dw_manager.zona (id_zona);
 
 ALTER TABLE  dw_manager.zona
 ADD ( CONSTRAINT id_zona_pk PRIMARY KEY (id_zona)) ;
@@ -139,7 +139,7 @@ ALTER TABLE dw_manager.atribuie
 ADD CONSTRAINT fk_atribuie_camera FOREIGN KEY (id_camera) REFERENCES dw_manager.camera(id_camera);
 
 
-alter session set container= orclpdb1;
+alter session dw_manager.set container= orclpdb1;
 
 INSERT INTO dw_manager.zona (JUDET, LOCALITATE, POZITIE) VALUES ('Mures', 'Targu Mures', 'centrala');
 INSERT INTO dw_manager.zona (JUDET, LOCALITATE, POZITIE) VALUES ('Brasov', 'Bran ', 'centrala');
@@ -195,14 +195,14 @@ INSERT INTO dw_manager.zona (JUDET, LOCALITATE, POZITIE) VALUES ('Bihor', 'Baile
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('hotel Privo',4,1,0);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Conacul Bratescu', 4, 2, 1);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Transylvanian Inn', 3, 3, 1);
-INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('The Mansion Boutique hotel', 4, 4, 1);
+INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('The MansiON dw_manager.Boutique hotel', 4, 4, 1);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Ioana hotel', 5, 5, 1);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Epoque hotel Relais Chateaux', 5, 6, 0);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Rosen Villa Sibiu', 1, 7, 1);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('hotel International Iasi', 4, 8, 1);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('IAKI Conference Spa hotel', 4, 9, 0);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Republique hotel', 4, 7, 1);
-INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Hampton by Hilton Cluj-Napoca', 3, 11, 0);
+INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('HamptON dw_manager.by HiltON dw_manager.Cluj-Napoca', 3, 11, 0);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Grand hotel Continental', 5, 5, 0);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Ana hotels Sport Poiana Brasov', 4, 12, 0);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('hotel Casa Wagner', 3, 14, 0);
@@ -213,7 +213,7 @@ INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VAL
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('ibis Styles Bucharest City Center', 3, 4, 0);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Kronwell Brasov hotel', 4, 14, 1);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Akasha Wellness Retreat', 3, 15, 0);
-INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Hilton Garden Inn Bucharest Old Town', 4, 4, 1);
+INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('HiltON dw_manager.Garden Inn Bucharest Old Town', 4, 4, 1);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Centrum House Hostel Bar', 1, 13, 1);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('The Spot Cosy Hostel', 1, 20, 0);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Belfort hotel', 3, 13, 1);
@@ -231,7 +231,7 @@ INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VAL
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Lol et Lola hotel', 3, 11, 0);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Guesthouse La Despani', 2, 14, 1);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Bella Muzica', 3, 13, 1);
-INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Hilton Garden Inn Bucharest Airport', 4, 34, 0);
+INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('HiltON dw_manager.Garden Inn Bucharest Airport', 4, 34, 0);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Rembrandt hotel', 3, 6, 1);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('hotel Central Park', 4, 21, 1);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Casa Savri', 1, 23, 1);
@@ -286,7 +286,7 @@ INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VAL
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('hotel Select Iasi', 4, 42, 0);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('hotel Coroana Brasovului', 3, 13, 1);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Central Plaza hotel', 4, 14, 1);
-INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Pension Bellagio', 4, 11, 1);
+INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('PensiON dw_manager.Bellagio', 4, 11, 1);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Opera Plaza hotel', 5, 20, 0);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Del Corso hotel', 3, 46, 1);
 INSERT INTO dw_manager.hotel (NUME, NR_STELE, ID_zona, ARE_MIC_DEJUN_INCLUS) VALUES ('Casa Muntean', 1, 47, 1);
@@ -736,7 +736,7 @@ INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, T
 
 INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('valentino_duke', 'jNmV3Hq', 'Valentino Duke', '+40 702 078 210', 'breanne16@blick.com', to_date('9-Oct-1961', 'DD-MON-RR'), 'male', 'casatorit ');
 
-INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('jonathon_richmond', 'q9EjwLQ', 'Jonathon Richmond', '+40 702 052 938', 'schiller.katelyn@heller.com', to_date('21-Sep-1984', 'DD-MON-RR'), 'male', 'casatorit ');
+INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('jonathon_richmond', 'q9EjwLQ', 'JonathON dw_manager.Richmond', '+40 702 052 938', 'schiller.katelyn@heller.com', to_date('21-Sep-1984', 'DD-MON-RR'), 'male', 'casatorit ');
 
 INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('reese_kramer', 'Ydu5s09', 'Reese Kramer', '+40 704 122 770', 'yquigley@mcdermott.com', to_date('12-Nov-1963', 'DD-MON-RR'), 'male', 'casatorit ');
 
@@ -752,11 +752,11 @@ INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, T
 
 INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('nevaeh_cross', 'OmIHy8J', 'Nevaeh Cross', '+40 702 019 995', 'willard08@gmail.com', to_date('18-Sep-1943', 'DD-MON-RR'), 'female', 'casatorita');
 
-INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('sheldon_wiggins', 'yU45H8E', 'Sheldon Wiggins', '+40 702 061 248', 'sheridan.pagac@yahoo.com', to_date('15-Aug-1952', 'DD-MON-RR'), 'female', 'casatorita');
+INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('sheldon_wiggins', 'yU45H8E', 'SheldON dw_manager.Wiggins', '+40 702 061 248', 'sheridan.pagac@yahoo.com', to_date('15-Aug-1952', 'DD-MON-RR'), 'female', 'casatorita');
 
 INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('cedric_briggs', 'uC3SwQo', 'Cedric Briggs', '+40 732 357 692', 'ida.rolfson@gmail.com', to_date('18-Dec-1993', 'DD-MON-RR'), 'male', 'casatorit ');
 
-INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('jason_graves', 'EsYy1yM', 'Jason Graves', '+40 701 625 464', 'connie94@barrows.com', to_date('18-Jun-1988', 'DD-MON-RR'), 'female', 'necasatorita');
+INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('jason_graves', 'EsYy1yM', 'JasON dw_manager.Graves', '+40 701 625 464', 'connie94@barrows.com', to_date('18-Jun-1988', 'DD-MON-RR'), 'female', 'necasatorita');
 
 INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('rayna_soto', 'GrmU91U', 'Rayna Soto', '+40 702 068 623', 'bbernier@reilly.biz', to_date('13-Oct-1959', 'DD-MON-RR'), 'female', 'necasatorita');
 
@@ -816,7 +816,7 @@ INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, T
 
 INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('noemi_medina', 'l2Kf3p2', 'Noemi Medina', '+40 702 098 923', 'mariana.kihn@schimmel.com', to_date('20-Jan-1965', 'DD-MON-RR'), 'female', 'necasatorita');
 
-INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('javion_oconnell', 'D8IM4yx', 'Javion Oconnell', '+40 702 068 499', 'harber.laurence@gmail.com', to_date('29-Mar-1940', 'DD-MON-RR'), 'male', 'necasatorit ');
+INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('javion_oconnell', 'D8IM4yx', 'JaviON dw_manager.Oconnell', '+40 702 068 499', 'harber.laurence@gmail.com', to_date('29-Mar-1940', 'DD-MON-RR'), 'male', 'necasatorit ');
 
 INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('annabel_terry', 'Ng7HU1v', 'Annabel Terry', '+40 720 295 327', 'benjamin.bogisich@hotmail.com', to_date('12-Aug-1957', 'DD-MON-RR'), 'female', 'casatorita');
 
@@ -864,7 +864,7 @@ INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, T
 
 INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('rosemary_bridges', 'b7qXpBh', 'Rosemary Bridges', '+40 774 265 596', 'eichmann.graciela@lindgren.com', to_date('10-Oct-1954', 'DD-MON-RR'), 'female', 'casatorita');
 
-INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('waylon_fields', 'AMgF6lR', 'Waylon Fields', '+40 702 015 621', 'abshire.daisy@pfannerstill.net', to_date('17-Nov-1957', 'DD-MON-RR'), 'male', 'necasatorit ');
+INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('waylon_fields', 'AMgF6lR', 'WaylON dw_manager.Fields', '+40 702 015 621', 'abshire.daisy@pfannerstill.net', to_date('17-Nov-1957', 'DD-MON-RR'), 'male', 'necasatorit ');
 
 INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('kenneth_gamble', 'BPl1h3f', 'Kenneth Gamble', '+40 702 077 044', 'shields.wilfred@yahoo.com', to_date('10-Nov-1963', 'DD-MON-RR'), 'male', 'necasatorit ');
 
@@ -884,7 +884,7 @@ INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, T
 
 INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('jeremy_mckay', 'Y8eqLnS', 'Jeremy Mckay', '+40 702 045 809', 'rice.miles@gmail.com', to_date('23-Aug-1978', 'DD-MON-RR'), 'male', 'necasatorit ');
 
-INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('gideon_hooper', 'rL39mA2', 'Gideon Hooper', '+40 702 028 703', 'kade.hettinger@hotmail.com', to_date('21-Apr-1998', 'DD-MON-RR'), 'male', 'necasatorit ');
+INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('gideon_hooper', 'rL39mA2', 'GideON dw_manager.Hooper', '+40 702 028 703', 'kade.hettinger@hotmail.com', to_date('21-Apr-1998', 'DD-MON-RR'), 'male', 'necasatorit ');
 
 INSERT INTO dw_manager.utilizator (NUME_utilizator, HASH_PAROLA, NUME_COMPLET, TELEFON, EMAIL, DATA_NASTERII, GEN, STARE_CIVILA) VALUES ('nathan_lamb', 'UdAhH3F', 'Nathan Lamb', '+40 713 618 820', 'trippin@hotmail.com', to_date('4-Aug-1968', 'DD-MON-RR'), 'male', 'casatorit ');
 
@@ -1413,7 +1413,7 @@ INSERT INTO dw_manager.atribuie (ID_rezervare, ID_camera) VALUES (38, 77);
 
 
 CREATE USER dw_admin IDENTIFIED BY admin_pass;
-GRANT CREATE SESSION TO dw_admin;
+GRANT CREATE SESSION dw_manager.TO dw_admin;
 
 GRANT SELECT ANY TABLE TO dw_admin;
 GRANT DELETE ANY TABLE TO dw_admin;
@@ -1421,9 +1421,9 @@ GRANT UPDATE ANY TABLE TO dw_admin;
 GRANT ALTER ANY TABLE TO dw_admin;
 
 --daca dorim sa oferim doar anumite privilegi mai restrictive asupra anumitor tabele putem folosi comanda urmatoare
---GRANT UPDATE ON dw_manager. dw_manager.rezervare TO dw_admin;
+--GRANT UPDATE ON dw_manager.dw_manager. dw_manager.rezervare TO dw_admin;
 --sau daca dorim sa nu mai folosim anumite privilegii precum cel de mai putem folosi comanda
---REVOKE DELETE ON dw_manager. dw_manager.rezervare FROM dw_admin;
+--REVOKE DELETE ON dw_manager.dw_manager. dw_manager.rezervare FROM dw_admin;
 
 --pentru a accesa un tabel trebuie sa folosim dw_manager.nume_tabel deoarece altfel nu merge
 
@@ -1439,7 +1439,7 @@ WHERE grantee like 'DW_%';
 
 --cu aceasta comanda putem vedea doar privilegiile mai restrictive.
 
--- ALTER USER marius QUOTA UNLIMITED ON USERS;
+-- ALTER USER marius QUOTA UNLIMITED ON dw_manager.USERS;
 exit;
 
 --Baza noastra de date OLTP va avea 3 tipuri de utilizatori in aplicatie
@@ -1452,7 +1452,7 @@ exit;
 --si de a modifica datele din tabele dupa propriul interes.
 
 -- show con_name;
--- alter session set container= orclpdb1;
+-- alter sessiON dw_manager.set container= orclpdb1;
 -- show con_name;
 -- ALTER PLUGGABLE DATABASE orclpdb1 open;
 

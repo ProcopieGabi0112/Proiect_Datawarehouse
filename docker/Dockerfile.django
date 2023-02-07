@@ -28,7 +28,7 @@ COPY hotels/ .
 # Copy entrypoint script 
 COPY docker/entrypoint_django.sh .
 
-# Solve Python dependencies
+# Solve PythON dw_manager.dependencies
 RUN pip  install --upgrade pip
 RUN pip install -r requirements.txt
 
