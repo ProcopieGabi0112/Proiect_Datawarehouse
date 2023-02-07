@@ -50,7 +50,7 @@ PARTITION dw_manager.BY LIST (nr_stele)
 
 
 DROP TABLE tip_client_OLAP;
-CREATE TABLE tip_client_OLAP(
+CREATE TABLE dw_manager.tip_client_OLAP(
  id_tip_client NUMBER(8) GENERATED ALWAYS as IDENTITY(START WITH 1 INCREMENT BY 1),
  varsta NUMBER(3) CONSTRAINT varsta_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
  gen VARCHAR(20),
@@ -59,8 +59,8 @@ CREATE TABLE tip_client_OLAP(
  );
 
 
-DROP TABLE moment_efectuare_rezervare_OLAP;
-CREATE TABLE moment_efectuare_rezervare_OLAP(
+DROP TABLE dw_manager.moment_efectuare_rezervare_OLAP;
+CREATE TABLE dw_manager.moment_efectuare_rezervare_OLAP(
 id_moment_efectuare NUMBER(8,0) GENERATED ALWAYS as IDENTITY(START WITH 1 INCREMENT BY 1),
 zi_din_luna NUMBER(2,0) CONSTRAINT zi_din_luna_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
 luna CHAR(3) CONSTRAINT luna_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
@@ -72,8 +72,8 @@ PRIMARY KEY (id_moment_efectuare)
 );
 
 
-DROP TABLE rezervare_camera_OLAP;
-CREATE TABLE rezervare_camera_OLAP(
+DROP TABLE dw_manager.rezervare_camera_OLAP;
+CREATE TABLE dw_manager.rezervare_camera_OLAP(
 id_rezervare NUMBER(8,0) CONSTRAINT id_rezervare_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
 id_hotel NUMBER(8,0) CONSTRAINT id_hotel_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
 id_perioada NUMBER(8,0) CONSTRAINT id_perioada_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE,
@@ -83,17 +83,17 @@ id_tip_camera NUMBER(8,0) CONSTRAINT id_tip_camera_nn_OLAP NOT NULL RELY DISABLE
 pret NUMBER CONSTRAINT pret_nn_OLAP NOT NULL RELY DISABLE NOVALIDATE
 );
 
-ALTER TABLE rezervare_camera_OLAP
+ALTER TABLE dw_manager.rezervare_camera_OLAP
 ADD FOREIGN KEY(id_hotel) REFERENCES hotel_OLAP(id_hotel);
 
-ALTER TABLE rezervare_camera_OLAP
+ALTER TABLE dw_manager.rezervare_camera_OLAP
 ADD FOREIGN KEY(id_perioada) REFERENCES perioada_rezervare_OLAP(id_perioada);
 
-ALTER TABLE rezervare_camera_OLAP
+ALTER TABLE dw_manager.rezervare_camera_OLAP
 ADD FOREIGN KEY(id_moment_efectuare) REFERENCES moment_efectuare_rezervare_OLAP(id_moment_efectuare);
 
-ALTER TABLE rezervare_camera_OLAP
+ALTER TABLE dw_manager.rezervare_camera_OLAP
 ADD FOREIGN KEY(id_tip_camera) REFERENCES tip_camera_OLAP(id_tip_camera);
 
-ALTER TABLE rezervare_camera_OLAP
+ALTER TABLE dw_manager.rezervare_camera_OLAP
 ADD FOREIGN KEY(id_tip_client) REFERENCES tip_client_OLAP(id_tip_client);
