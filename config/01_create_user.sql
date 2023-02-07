@@ -41,7 +41,7 @@ CREATE TABLE dw_manager.utilizator
       nume_utilizator VARCHAR(30) CONSTRAINT nume_utilizator_nn NOT NULL, 
       hash_parola VARCHAR(25) CONSTRAINT hash_parola_utilizator_nn NOT NULL,
       nume_complet VARCHAR(30) CONSTRAINT nume_complet_utilizator_nn NOT NULL,
-      telefON dw_manager.VARCHAR(15) CONSTRAINT telefon_utilizator_nn NOT NULL,
+      telefon VARCHAR(15) CONSTRAINT telefon_utilizator_nn NOT NULL,
       email VARCHAR(50) CONSTRAINT email_utilizator_nn NOT NULL,
       data_nasterii DATE CONSTRAINT data_nasterii_utilizator_nn NOT NULL,
       gen VARCHAR(20) DEFAULT NULL,
@@ -139,7 +139,7 @@ ALTER TABLE dw_manager.atribuie
 ADD CONSTRAINT fk_atribuie_camera FOREIGN KEY (id_camera) REFERENCES dw_manager.camera(id_camera);
 
 
-alter session dw_manager.set container= orclpdb1;
+alter session set container= orclpdb1;
 
 INSERT INTO dw_manager.zona (JUDET, LOCALITATE, POZITIE) VALUES ('Mures', 'Targu Mures', 'centrala');
 INSERT INTO dw_manager.zona (JUDET, LOCALITATE, POZITIE) VALUES ('Brasov', 'Bran ', 'centrala');

@@ -1,5 +1,5 @@
 show con_name;
-alter sessiON dw_manager.set container= orclpdb;
+alter session set container= orclpdb;
 show con_name;
 ALTER PLUGGABLE DATABASE orclpdb open;
 
