@@ -1,0 +1,45 @@
+------------------------------------------------
+Echipa 12 este formata din:
+------------------------------------------------
+ -Procopie Gabriel 505
+ -Marin Ana Maria 505
+ -Radu Marius 505 
+ -Barbu Cerbulescu 505
+------------------------------------------------
+Contributia membrilor echipei:
+------------------------------------------------
+         Procopie Gabriel
+------------------------------------------------
+  - modul de analiza OLTP
+  - generare utilizatori OLTP
+  - implementare schema OLTP 
+  - cautare si generare date OLTP
+  - adaptarea schemei OLTP pentru OLAP
+  - integrarea schemei folosind Docker
+------------------------------------------------
+         Marin Ana Maria
+------------------------------------------------
+   - modul de analiza OLAP 
+   - popularea cu informatii a bazei de date depozit
+   - implementarea constrangerilor
+   - identificare si implementare indecsi
+   - crearea obiecte dimension
+   - crearea partitiilor 
+------------------------------------------------
+         Barbu Cerbulescu
+------------------------------------------------
+   - implementarea schemei OLAP
+   - descrierea campurilor din OLAP
+   - identificare si implementare indecsi
+   - crearea obiecte dimension
+   - crearea partitiilor 
+------------------------------------------------
+            Radu Marius
+------------------------------------------------
+   - integrarea schemei OLTP cu docker
+   - integrarea schemei OLAP cu docker
+   - configurarea interfetei pentru OLTP 
+   - configurarea interfetei pentru OLAP
+   - generarea de rapoarte grafice schema OLAP
+   - prapagarea informatiilor din OLTP in OLAP
+------------------------------------------------

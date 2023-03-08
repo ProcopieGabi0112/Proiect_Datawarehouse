@@ -1,0 +1,22 @@
+ALTER TABLE rezervare
+DROP CONSTRAINT fk_id_client_id_utilizator;
+
+ALTER TABLE camera
+DROP CONSTRAINT fk_camera_hotel;
+
+ALTER TABLE hotel
+DROP CONSTRAINT fk_hotel_zona;
+
+ALTER TABLE atribuie
+DROP CONSTRAINT fk_atribuie_rezervare;
+
+ALTER TABLE atribuie
+DROP CONSTRAINT fk_atribuie_camera;
+
+DROP TABLE utilizator;
+DROP TABLE rezervare;
+DROP TABLE atribuie;
+DROP TABLE camera;
+DROP TABLE hotel;
+DROP TABLE zona;
+
